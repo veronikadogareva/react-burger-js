@@ -1,0 +1,46 @@
+.container h2 {
+  margin-bottom: 20px;
+}
+.tabs {
+  display: flex;
+  margin-bottom: 40px;
+}
+.container h3 {
+  margin-bottom: 24px;
+}
+.cardList {
+  display: grid;
+  margin: 0 16px 40px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 24px;
+  max-height: 716px;
+  overflow-y: scroll;
+}
+.cardList::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.cardList::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+.cardList::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #ff00ff, #00ffff); /* Градиент */
+  border-radius: 4px; /* Закругленные края */
+  border: 2px solid rgba(0, 0, 0, 0.5); /* Обводка для эффекта */
+}
+.cardList li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cardList span {
+  margin: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cardList p {
+  min-height: 48px;
+  display: inline-block;
+}
