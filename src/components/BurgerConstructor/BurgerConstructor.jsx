@@ -1,10 +1,12 @@
 import React from 'react';
-import burgerConstructorStyles from './burgerConstructor.module.css';
-import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 import 'simplebar-react/dist/simplebar.min.css';
 import SimpleBar from 'simplebar-react';
+import burgerConstructorStyles from './burgerConstructor.module.css';
+import { ConstructorElement, CurrencyIcon, Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export default function BurgerConstructor(props) {
+
+export default function BurgerConstructor({ingredients}) {
     return (
         <section className={burgerConstructorStyles.container}>
             <SimpleBar style={{ maxHeight: 656 }}>
@@ -94,3 +96,21 @@ export default function BurgerConstructor(props) {
         </section >
     );
 }
+BurgerConstructor.propTypes = {
+    ingredients: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(["bun", "sauce", "main"]).isRequired,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string,
+        image_large: PropTypes.string,
+        __v: PropTypes.number,
+      })
+    ).isRequired,
+  };

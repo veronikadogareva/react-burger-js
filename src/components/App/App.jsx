@@ -1,8 +1,8 @@
-import React from "react";
-import appStyles from "./App.module.css";
-import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import React from 'react';
+import appStyles from './App.module.css';
+import AppHeader from '../AppHeader/AppHeader';
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 
 const ingredients = [
   {
@@ -225,7 +225,7 @@ function App() {
       <AppHeader />
       <main>
         <BurgerIngredients ingredients={ingredients} />
-        <BurgerConstructor />
+        <BurgerConstructor ingredients={ingredients} />
       </main>
     </div>
   );

@@ -1,10 +1,14 @@
 import React from 'react';
-import burgerIngredientsStyles from './BurgerIngredients.module.css';
-import { Tab, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 import 'simplebar-react/dist/simplebar.min.css';
 import SimpleBar from 'simplebar-react';
 
-export default function BurgerIngredients(props) {
+import burgerIngredientsStyles from './BurgerIngredients.module.css';
+import { Tab, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
+
+
+export default function BurgerIngredients({ingredients}) {
     const [current, setCurrent] = React.useState('buns');
     return (
         <section className={burgerIngredientsStyles.container}>
@@ -118,3 +122,21 @@ export default function BurgerIngredients(props) {
         </section>
     );
 }
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(["bun", "sauce", "main"]).isRequired,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string,
+        image_large: PropTypes.string,
+        __v: PropTypes.number,
+      })
+    ).isRequired,
+  };
