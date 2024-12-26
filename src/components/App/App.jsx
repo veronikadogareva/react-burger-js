@@ -223,10 +223,10 @@ function App() {
   return (
     <div className={appStyles.app}>
       <AppHeader />
-      <div className={appStyles.main}>
+      <main>
         <BurgerIngredients ingredients={ingredients} />
         <BurgerConstructor />
-      </div>
+      </main>
     </div>
   );
 }

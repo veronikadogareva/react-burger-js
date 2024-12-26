@@ -5,8 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #F2F2F3;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -14,4 +17,27 @@ code {
 ul {
   padding: 0;
   list-style: none;
+}
+
+.simplebar-scrollbar {
+  background: linear-gradient(45deg, #ff00ff, #00ffff);
+  border-radius: 4px;
+  width: 8px;
+  transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  opacity: 1;
+}
+
+.simplebar-scrollbar:hover {
+  background: linear-gradient(45deg, #ff00ff, #00ffff);
+}
+
+.simplebar-track {
+  background: transparent;
+  border-radius: 4px;
+  right: 2px;
+}
+
+div.simplebar-track.simplebar-vertical {
+  background: #2f2f37;
+  width: 8px;
 }
