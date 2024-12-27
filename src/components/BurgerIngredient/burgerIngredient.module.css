@@ -1,0 +1,35 @@
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    color: #F2F2F3;
+    position: relative;
+}
+
+.item p {
+    min-height: 48px;
+    display: inline-block;
+    text-align: center;
+}
+
+.count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #4C4CFF;
+    cursor: default;
+}
+
+.price {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
