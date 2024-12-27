@@ -34,6 +34,7 @@
 .cardList p {
   min-height: 48px;
   display: inline-block;
+  text-align: center;
 }
 .count{
   position: absolute;
