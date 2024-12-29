@@ -1,34 +1,39 @@
 .container {
-
-    margin-top: 60px;
+  margin-top: 60px;
 }
 
 .container ul {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0 16px;
-    align-items: center;
-    
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 16px;
+  align-items: center;
 }
-.container li{padding-left: 32px;
-    position: relative;}
-.container li>svg{position: absolute;left: 0;top: 50%;transform: translateY(-50%);}
+.container li {
+  padding-left: 32px;
+  position: relative;
+}
+.container li > svg {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .total {
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    gap: 40px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 40px;
 }
 
 .total svg {
-    width: 36px;
-    height: 36px;
+  width: 36px;
+  height: 36px;
 }
 
 .total span {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

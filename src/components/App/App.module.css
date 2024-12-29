@@ -9,4 +9,6 @@
   display: flex;
   gap: 40px;
 }
-.app main section{flex: 1;}
+.app main section {
+  flex: 1;
+}

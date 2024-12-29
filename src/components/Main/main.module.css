@@ -1,11 +1,11 @@
 .main {
-    padding: 0 15px;
-    margin: 0 auto 40px;
-    max-width: 1240px;
-    display: flex;
-    gap: 40px;
+  padding: 0 15px;
+  margin: 0 auto 40px;
+  max-width: 1240px;
+  display: flex;
+  gap: 40px;
 }
 
-.main>section {
-    flex: 1;
+.main > section {
+  flex: 1;
 }

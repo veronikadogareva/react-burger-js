@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #F2F2F3;
+  color: #f2f2f3;
 }
 html {
   scroll-behavior: smooth;
@@ -40,4 +40,11 @@ ul {
 div.simplebar-track.simplebar-vertical {
   background: #2f2f37;
   width: 8px;
+}
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
