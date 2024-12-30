@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import "simplebar-react/dist/simplebar.min.css";
 import SimpleBar from "simplebar-react";
 import burgerConstructorStyles from "./burgerConstructor.module.css";
@@ -11,6 +10,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
+import IngredientType from '../../utils/types';
 
 export default function BurgerConstructor({ ingredients }) {
   const [isModal, setIsModal] = useState(false);
@@ -121,21 +121,4 @@ export default function BurgerConstructor({ ingredients }) {
     </React.Fragment>
   );
 }
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.oneOf(["bun", "sauce", "main"]).isRequired,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    })
-  ).isRequired,
-};
+BurgerConstructor.propTypes = IngredientType.ingredients;

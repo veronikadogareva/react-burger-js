@@ -1,11 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import "simplebar-react/dist/simplebar.min.css";
 import SimpleBar from "simplebar-react";
 
 import burgerIngredientsStyles from "./burgerIngredients.module.css";
 import BurgerSection from "../BurgerSection/BurgerSection";
 import Tabs from "../Tabs/Tabs";
+import IngredientType from '../../utils/types'
 
 export default function BurgerIngredients({ ingredients }) {
   return (
@@ -36,21 +37,4 @@ export default function BurgerIngredients({ ingredients }) {
     </React.Fragment>
   );
 }
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.oneOf(["bun", "sauce", "main"]).isRequired,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    })
-  ).isRequired,
-};
+BurgerIngredients.propTypes = IngredientType.ingredients;
