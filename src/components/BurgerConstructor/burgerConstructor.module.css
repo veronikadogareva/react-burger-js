@@ -12,6 +12,7 @@
 .container li {
   padding-left: 32px;
   position: relative;
+  width: 100%;
 }
 .container li > svg {
   position: absolute;
