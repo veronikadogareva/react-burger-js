@@ -25,12 +25,12 @@ export default function Modal({ children, onClose, title }) {
   return ReactDOM.createPortal(
     <React.Fragment>
       <div className={modalStyles.modal}>
-        <header>
+        <div className={modalStyles.top}>
           <h2 className="text text_type_main-large">{title}</h2>
           <button type="button" onClick={onClose}>
             <CloseIcon type="primary" />
           </button>
-        </header>
+        </div>
         <div className={modalStyles.content}>{children}</div>
       </div>
       <ModalOverlay onClose={onClose} />

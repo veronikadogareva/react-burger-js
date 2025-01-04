@@ -3,14 +3,14 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import burgerIngredientStyles from "./burgerIngredient.module.css";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import { useModal } from "../../hooks/useModal";
 
-export default function BurgerIngredient({ ingredient, count }) {
-  const [isModal, setIsModal] = useState(false);
-  const openModal = () => setIsModal(true);
-  const closeModal = () => setIsModal(false);
+export default function BurgerIngredient({ ingredient, count, setModalIngredient }) {
+  const clickIngregient = () => {
+    setModalIngredient(ingredient)
+  }
   return (
-    <React.Fragment>
-      <li className={burgerIngredientStyles.item} onClick={openModal}>
+      <li className={burgerIngredientStyles.item} onClick={clickIngregient}>
         <img src={ingredient.image} alt={ingredient.name} />
         <span
           className={`text text_type_digits-default ${burgerIngredientStyles.price}`}
@@ -27,11 +27,5 @@ export default function BurgerIngredient({ ingredient, count }) {
           </span>
         )}
       </li>
-      {isModal && (
-        <Modal onClose={closeModal} title="Детали ингредиента">
-          <IngredientDetails ingredient={ingredient} />
-        </Modal>
-      )}
-    </React.Fragment>
   );
 }

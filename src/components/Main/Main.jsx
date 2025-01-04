@@ -6,10 +6,11 @@ import BurgerService from "./Services/BurgerService";
 
 export default function Main() {
   const [ingredients, setIngredients] = useState([]);
-
   useEffect(() => {
+    console.log('fsdf')
     BurgerService.getIngredients()
       .then((data) => {
+        
         setIngredients(data.data);
       })
       .catch((err) => {

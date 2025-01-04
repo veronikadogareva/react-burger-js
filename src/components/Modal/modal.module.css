@@ -10,7 +10,7 @@
   padding: 40px 40px 60px;
   z-index: 10;
 }
-.modal header {
+.top {
   display: flex;
   justify-content: space-between;
   height: 64px;

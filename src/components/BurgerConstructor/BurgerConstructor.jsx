@@ -1,41 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
 import "simplebar-react/dist/simplebar.min.css";
 import SimpleBar from "simplebar-react";
+import PropTypes from "prop-types";
 import burgerConstructorStyles from "./burgerConstructor.module.css";
 import {
   ConstructorElement,
   CurrencyIcon,
   Button,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
 import IngredientType from "../../utils/types";
+import { useModal } from "../../hooks/useModal";
 
 export default function BurgerConstructor({ ingredients }) {
-  const [isModal, setIsModal] = useState(false);
-  const openModal = () => setIsModal(true);
-  const closeModal = () => setIsModal(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
+  const bun = ingredients.filter(i => i.type === "bun")[0];
   return (
     <React.Fragment>
       <section className={burgerConstructorStyles.container}>
-        <SimpleBar style={{ maxHeight: 656 }}>
-          <ul>
+      <ul>
+        {bun && <li><ConstructorElement type="top" isLocked={true} price={bun.price} text={bun.name + ' (верх)'} thumbnail={bun.image_mobile} /></li>}
+        <SimpleBar style={{ maxHeight: 450,overflowX: "hidden"}}>
+          
             {ingredients.map((ingredient) => {
-              return (
-                <li key={ingredient._id}>
-                  <ConstructorElement
-                    type={ingredient.type}
-                    isLocked={true}
-                    text={ingredient.name}
-                    price={ingredient.price}
-                    thumbnail={ingredient.image_mobile}
-                  />
-                </li>
-              );
+              if (ingredient.type !== 'bun'){
+                return (
+                  <li key={ingredient._id}>
+                    <ConstructorElement
+                      type={ingredient.type}
+                      isLocked={false}
+                      text={ingredient.name}
+                      price={ingredient.price}
+                      thumbnail={ingredient.image_mobile}
+                    />
+                  </li>
+                );
+              }
+             
             })}
-          </ul>
+          
         </SimpleBar>
+        {bun && <li><ConstructorElement type="bottom" isLocked={true} price={bun.price} thumbnail={bun.image_mobile} text={bun.name + ' (низ)'}/></li>}
+        </ul>
         <div className={burgerConstructorStyles.total}>
           <span className="text text_type_digits-medium">
             20
@@ -51,7 +58,7 @@ export default function BurgerConstructor({ ingredients }) {
           </Button>
         </div>
       </section>
-      {isModal && (
+      {isModalOpen && (
         <Modal onClose={closeModal}>
           <OrderDetails />
         </Modal>
@@ -59,4 +66,6 @@ export default function BurgerConstructor({ ingredients }) {
     </React.Fragment>
   );
 }
-BurgerConstructor.propTypes = IngredientType.ingredients;
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(IngredientType),
+};
