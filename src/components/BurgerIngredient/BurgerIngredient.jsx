@@ -1,9 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientStyles from "./burgerIngredient.module.css";
-import Modal from "../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { useModal } from "../../hooks/useModal";
 
 export default function BurgerIngredient({ ingredient, count, setModalIngredient }) {
   const clickIngregient = () => {
