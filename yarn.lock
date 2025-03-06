@@ -2412,6 +2412,14 @@
   resolved "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@ya.praktikum/react-developer-burger-ui-components@^1.14.2":
+  version "1.14.2"
+  resolved "https://registry.yarnpkg.com/@ya.praktikum/react-developer-burger-ui-components/-/react-developer-burger-ui-components-1.14.2.tgz#0ccdde8da1da05b1051e99de9f4d622e772436e4"
+  integrity sha512-2YkpCVE3/HwP8jLr8ObV56Q9f6OKj/jBAca2iY85PevtD2Hrc9v6WTNKgKaAjWIb1jxaS6kYBiShnGWyz1EcNA==
+  dependencies:
+    clsx "^1.1.1"
+    plural-ru "^2.0.2"
+
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
   resolved "https://registry.npmjs.org/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"
@@ -3194,6 +3202,11 @@ cliui@^7.0.2:
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
+
+clsx@^1.1.1:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
 co@^4.6.0:
   version "4.6.0"
@@ -7123,6 +7136,11 @@ pkg-up@^3.1.0:
   dependencies:
     find-up "^3.0.0"
 
+plural-ru@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/plural-ru/-/plural-ru-2.0.2.tgz#5fda445d7a7f83a94020e3b81266c873a85eebb4"
+  integrity sha512-zmQv/tMG7fjF8r8JJ2U1p9dP1RgQ54RnP9nOM9dJHlcWU4mVmesKU9RgouxvyrCIU7lwOtGBYJ6cBa00UlzUZQ==
+
 possible-typed-array-names@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/possible-typed-array-names/-/possible-typed-array-names-1.0.0.tgz#89bb63c6fada2c3e90adc4a647beeeb39cc7bf8f"
@@ -7761,7 +7779,7 @@ prompts@^2.0.1, prompts@^2.4.2:
 
 prop-types@^15.8.1:
   version "15.8.1"
-  resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
   dependencies:
     loose-envify "^1.4.0"
@@ -8508,6 +8526,27 @@ signal-exit@^4.0.1:
   version "4.1.0"
   resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-4.1.0.tgz#952188c1cbd546070e2dd20d0f41c0ae0530cb04"
   integrity sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==
+
+simplebar-core@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/simplebar-core/-/simplebar-core-1.3.0.tgz#166cfbb4c1a2dc0a60833fe8e1fd590cdb32158b"
+  integrity sha512-LpWl3w0caz0bl322E68qsrRPpIn+rWBGAaEJ0lUJA7Xpr2sw92AkIhg6VWj988IefLXYh50ILatfAnbNoCFrlA==
+  dependencies:
+    lodash "^4.17.21"
+
+simplebar-react@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.npmjs.org/simplebar-react/-/simplebar-react-3.3.0.tgz#7170f29f0ea785c6881db81a8447c408fbc9056e"
+  integrity sha512-sxzy+xRuU41He4tT4QLGYutchtOuye/xxVeq7xhyOiwMiHNK1ZpvbOTyy+7P0i7gfpXLGTJ8Bep8+4Mhdgtz/g==
+  dependencies:
+    simplebar-core "^1.3.0"
+
+simplebar@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/simplebar/-/simplebar-6.3.0.tgz#5581558e532d9ecf6e42faef932d81537f94d3ca"
+  integrity sha512-SQJfKSvUPJxlOhYCpswEn5ke5WQGsgDZNmpScWL+MKXgYpCDTq1bGiv6uWXwSHMYTkMco32fDUL35sVwCMmzCw==
+  dependencies:
+    simplebar-core "^1.3.0"
 
 sisteransi@^1.0.5:
   version "1.0.5"

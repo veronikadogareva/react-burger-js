@@ -1,0 +1,45 @@
+.container {
+  margin-top: 60px;
+}
+
+.container ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  align-items: center;
+  max-width: 600px;
+}
+.container ul >div{width: 100%;}
+.container .simplebar-content-wrapper{overflow-x: hidden!important;}
+.container li {
+  position: relative;
+  width: 100%;
+  margin-left: 32px;
+}
+.container ul >div li {margin-left: 16px;}
+.container li:not(:last-child){margin-bottom: 10px;}
+.container li:last-child{margin-top: 10px;}
+.container li > svg {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.total {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 40px;
+}
+
+.total svg {
+  width: 36px;
+  height: 36px;
+}
+
+.total span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
