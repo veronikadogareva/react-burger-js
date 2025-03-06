@@ -16,15 +16,9 @@ import { getSelectedIngredient, getIsModal } from "../../services/selectedIngred
 import { INGREDIENT_DELETE } from "../../services/selectedIngredient/action";
 
 export default function BurgerIngredients({ ingredients }) {
-  // const [modalIngredient, setModalIngredient] = useState(null);
   const dispatch = useDispatch();
   const isModal = useSelector(getIsModal);
   const selectedIngredient = useSelector(getSelectedIngredient);
-  // useEffect(() => {
-  //   if (isModal) {
-  //     openModal();
-  //   }
-  // }, [isModal]);
   const closeModal = () => {
     dispatch({
       type:INGREDIENT_DELETE

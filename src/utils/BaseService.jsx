@@ -1,8 +1,8 @@
 const BASEURL = "https://norma.nomoreparties.space/api";
 
 export default class BaseService {
-  static sendRequest(url) {
-    return fetch(BASEURL + url)
+  static sendRequest(url, options = {}) {
+    return fetch(BASEURL + url, options)
       .then((res) => {
         if (!res.ok) {
           throw new Error(
@@ -19,5 +19,15 @@ export default class BaseService {
   static getIngredients() {
     const url = "/ingredients";
     return this.sendRequest(url);
+  }
+  static sendOrder(orderData) {
+    const url = "/orders";
+    return this.sendRequest(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
   }
 }

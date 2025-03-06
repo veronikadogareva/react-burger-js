@@ -12,18 +12,11 @@ export default function Main() {
   const ingredients = useSelector(getAllIngredients);
   useEffect(() => {
     dispatch(loadIngredients());
-    // BurgerService.getIngredients()
-    //   .then((data) => {
-    //     setIngredients(data.data);
-    //   })
-    //   .catch((err) => {
-    //     console.error("Ошибка при загрузке ингредиентов:", err);
-    //   });
   }, []);
   return (
     <main className={mainStyles.main}>
       <BurgerIngredients ingredients={ingredients} />
-      <BurgerConstructor ingredients={ingredients} />
+      <BurgerConstructor />
     </main>
   );
 }

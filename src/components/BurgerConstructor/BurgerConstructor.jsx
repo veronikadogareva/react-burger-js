@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "simplebar-react/dist/simplebar.min.css";
 import SimpleBar from "simplebar-react";
 import PropTypes from "prop-types";
@@ -12,47 +12,59 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
 import IngredientType from "../../utils/types";
 import { useModal } from "../../hooks/useModal";
+import BurgerConstructorElement from "../BurgerConstructorElement/BurgerConstructorElement";
+import { useSelector } from "react-redux";
+import { getConstructorBun, getConstructorIngredients } from "../../services/constructorIngredients/selectors";
+import { getOrderId } from "../../services/order/selectors";
+import { sendOrder } from "../../services/order/action";
 
-export default function BurgerConstructor({ ingredients }) {
+export default function BurgerConstructor() {
   const { isModalOpen, openModal, closeModal } = useModal();
-  const bun = ingredients.filter(i => i.type === "bun")[0];
+  const [price, setPrice] = useState(0);
+  const ingredients = useSelector(getConstructorIngredients);
+  const bun = useSelector(getConstructorBun);
+  const orderId = useSelector(getOrderId);
+  const totalPrice = useMemo(() => {
+    return ingredients.reduce((total, ingredient) => total + ingredient.price, 0) + (bun ? bun.price * 2 : 0);
+  }, [ingredients, bun]);
+  useEffect(() => {
+    setPrice(totalPrice);
+  }, [totalPrice]);
+  const clickOrderButton = () => {
+    console.log([bun?._id, ...ingredients.map(ingredient => ingredient._id) ,bun?._id])
+    sendOrder([bun?._id, ...ingredients.map(ingredient => ingredient._id) ,bun?._id]);
+  }
   return (
     <React.Fragment>
       <section className={burgerConstructorStyles.container}>
-      <ul>
-        {bun && <li><ConstructorElement type="top" isLocked={true} price={bun.price} text={bun.name + ' (верх)'} thumbnail={bun.image_mobile} /></li>}
-        <SimpleBar style={{ maxHeight: 450,overflowX: "hidden"}}>
-          
-            {ingredients.map((ingredient) => {
-              if (ingredient.type !== 'bun'){
-                return (
-                  <li key={ingredient._id}>
-                    <ConstructorElement
-                      type={ingredient.type}
-                      isLocked={false}
-                      text={ingredient.name}
-                      price={ingredient.price}
-                      thumbnail={ingredient.image_mobile}
-                    />
-                  </li>
-                );
-              }
-             
-            })}
-          
-        </SimpleBar>
-        {bun && <li><ConstructorElement type="bottom" isLocked={true} price={bun.price} thumbnail={bun.image_mobile} text={bun.name + ' (низ)'}/></li>}
+        <ul>
+          {bun ? <li><ConstructorElement type="top" isLocked={true} price={bun.price} text={bun.name + '(верх)'} thumbnail={bun.image_mobile} /></li> :
+            <li><div class="constructor-element constructor-element_pos_top"><span class="constructor-element__row"><span class={`constructor-element__text ${burgerConstructorStyles.centerElement}`}>Добавьте булку</span></span></div></li>
+          }
+          <SimpleBar style={{ maxHeight: 450, overflowX: "hidden" }}>
+            {ingredients.length !== 0 ?
+              (ingredients.map((ingredient) => {
+                const key = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+                return <BurgerConstructorElement ingredient={ingredient} key={key} />;
+              })) :
+              <li><div class="constructor-element constructor-element_pos_main"><span class="constructor-element__row"><span class={`constructor-element__text ${burgerConstructorStyles.centerElement}`}>Добавьте начинку</span></span></div></li>
+            }
+
+          </SimpleBar>
+          {bun ? <li><ConstructorElement type="bottom" isLocked={true} price={bun.price} text={bun.name + '(низ)'} thumbnail={bun.image_mobile} /></li> :
+            <li><div class="constructor-element constructor-element_pos_bottom"><span class="constructor-element__row"><span class={`constructor-element__text ${burgerConstructorStyles.centerElement}`}>Добавьте булку</span></span></div></li>
+          }
         </ul>
         <div className={burgerConstructorStyles.total}>
           <span className="text text_type_digits-medium">
-            20
+            {price}
             <CurrencyIcon type="primary" />
           </span>
           <Button
             htmlType="button"
             type="primary"
             size="large"
-            onClick={openModal}
+            onClick={clickOrderButton}
           >
             Оформить заказ
           </Button>
