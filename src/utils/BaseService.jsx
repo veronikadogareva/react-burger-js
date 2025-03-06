@@ -16,4 +16,8 @@ export default class BaseService {
         throw err;
       });
   }
+  static getIngredients() {
+    const url = "/ingredients";
+    return this.sendRequest(url);
+  }
 }

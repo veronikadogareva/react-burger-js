@@ -3,19 +3,22 @@ import mainStyles from "./main.module.css";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerService from "./Services/BurgerService";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllIngredients } from "../../services/ingredients/selectors";
+import { loadIngredients } from "../../services/ingredients/action";
 
 export default function Main() {
-  const [ingredients, setIngredients] = useState([]);
+  const dispatch = useDispatch();
+  const ingredients = useSelector(getAllIngredients);
   useEffect(() => {
-    console.log('fsdf')
-    BurgerService.getIngredients()
-      .then((data) => {
-        
-        setIngredients(data.data);
-      })
-      .catch((err) => {
-        console.error("Ошибка при загрузке ингредиентов:", err);
-      });
+    dispatch(loadIngredients());
+    // BurgerService.getIngredients()
+    //   .then((data) => {
+    //     setIngredients(data.data);
+    //   })
+    //   .catch((err) => {
+    //     console.error("Ошибка при загрузке ингредиентов:", err);
+    //   });
   }, []);
   return (
     <main className={mainStyles.main}>

@@ -1,10 +1,17 @@
 import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientStyles from "./burgerIngredient.module.css";
+import { useDispatch } from "react-redux";
+import { INGREDIENT_ADD } from "../../services/selectedIngredient/action";
 
 export default function BurgerIngredient({ ingredient, count, setModalIngredient }) {
+  const dispatch = useDispatch();
   const clickIngregient = () => {
-    setModalIngredient(ingredient)
+    // setModalIngredient(ingredient)
+    dispatch({
+      type:INGREDIENT_ADD,
+      payload:ingredient,
+    })
   }
   return (
       <li className={burgerIngredientStyles.item} onClick={clickIngregient}>

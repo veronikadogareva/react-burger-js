@@ -11,16 +11,25 @@ import IngredientType from "../../utils/types";
 import { useModal } from "../../hooks/useModal";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { getSelectedIngredient, getIsModal } from "../../services/selectedIngredient/selectors";
+import { INGREDIENT_DELETE } from "../../services/selectedIngredient/action";
 
 export default function BurgerIngredients({ ingredients }) {
-  const { isModalOpen, openModal, closeModal } = useModal();
-  const [modalIngredient, setModalIngredient] = useState(null);
-  useEffect(() => {
-    if (modalIngredient) {
-      openModal();
-    }
-  }, [modalIngredient]);
-  console.log(ingredients.filter((i) => i.type === ""));
+  // const [modalIngredient, setModalIngredient] = useState(null);
+  const dispatch = useDispatch();
+  const isModal = useSelector(getIsModal);
+  const selectedIngredient = useSelector(getSelectedIngredient);
+  // useEffect(() => {
+  //   if (isModal) {
+  //     openModal();
+  //   }
+  // }, [isModal]);
+  const closeModal = () => {
+    dispatch({
+      type:INGREDIENT_DELETE
+    })
+  }
   return (
     <React.Fragment>
       <section className={burgerIngredientsStyles.container}>
@@ -32,26 +41,23 @@ export default function BurgerIngredients({ ingredients }) {
               id="buns"
               ingredients={ingredients.filter((f) => f.type === "bun")}
               title="Булки"
-              setModalIngredient={setModalIngredient}
             />
             <BurgerSection
               id="sauces"
               ingredients={ingredients.filter((f) => f.type === "sauce")}
               title="Соусы"
-              setModalIngredient={setModalIngredient}
             />
             <BurgerSection
               id="main"
               ingredients={ingredients.filter((f) => f.type === "main")}
               title="Начинки"
-              setModalIngredient={setModalIngredient}
             />
           </ul>
         </SimpleBar>
       </section>
-      {isModalOpen && (
+      {isModal && (
         <Modal onClose={closeModal} title="Детали ингредиента">
-          <IngredientDetails ingredient={modalIngredient} />
+          <IngredientDetails ingredient={selectedIngredient} />
         </Modal>
       )}
     </React.Fragment>
