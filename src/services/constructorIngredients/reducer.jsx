@@ -1,4 +1,4 @@
-import { CONSTRUCTOR_INGREDIENT_ADD, CONSTRUCTOR_INGREDIENT_DELETE, CONSTRUCTOR_INGREDIENT_REORDER } from "./action";
+import { CONSTRUCTOR_INGREDIENT_ADD, CONSTRUCTOR_INGREDIENT_DELETE, CONSTRUCTOR_INGREDIENT_REORDER, CONSTRUCTOR_INGREDIENTS_CLEAR } from "./action";
 
 const initialState = {
   bun: null,
@@ -31,6 +31,12 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: ingredients,
+      };
+    case CONSTRUCTOR_INGREDIENTS_CLEAR:
+      return {
+        ...state,
+        bun: null,
+        ingredients: [],
       };
     default:
       return state;

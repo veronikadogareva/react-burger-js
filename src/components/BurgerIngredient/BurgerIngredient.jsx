@@ -7,6 +7,7 @@ import { CONSTRUCTOR_INGREDIENT_ADD } from "../../services/constructorIngredient
 import { getConstructorBun, getConstructorIngredients } from "../../services/constructorIngredients/selectors";
 import { useDrag } from "react-dnd";
 import IngredientType from "../../utils/types";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BurgerIngredient({ ingredient }) {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export default function BurgerIngredient({ ingredient }) {
   const createNewIngredientWithUnique = (ingredient) => {
     return {
       ...ingredient,
-      unique: Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000,
+      unique: uuidv4(),
     };
   };
   const [{ isDragging }, drag] = useDrag(() => ({

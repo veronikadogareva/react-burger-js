@@ -1,6 +1,7 @@
 import tabsStyles from "./tabs.module.css";
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 export default function Tabs({ ref, activeTab, setActiveTab }) {
   // const clickTab = (evt) => {
@@ -23,5 +24,9 @@ export default function Tabs({ ref, activeTab, setActiveTab }) {
       </Tab>
     </div>
   );
-  //dgdfg
 }
+Tabs.propTypes = {
+  ref: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.instanceOf(Element) })]),
+  activeTab: PropTypes.oneOf(["buns", "sauces", "main"]).isRequired,
+  setActiveTab: PropTypes.func,
+};

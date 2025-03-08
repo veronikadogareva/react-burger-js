@@ -1,20 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import "simplebar-react/dist/simplebar.min.css";
 import SimpleBar from "simplebar-react";
-import PropTypes from "prop-types";
-
 import burgerIngredientsStyles from "./burgerIngredients.module.css";
 import BurgerSection from "../BurgerSection/BurgerSection";
 import Tabs from "../Tabs/Tabs";
-import IngredientType from "../../utils/types";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedIngredient, getIsModal } from "../../services/selectedIngredient/selectors";
 import { INGREDIENT_DELETE } from "../../services/selectedIngredient/action";
+import { getAllIngredients } from "../../services/ingredients/selectors";
 
-export default function BurgerIngredients({ ingredients }) {
+export default function BurgerIngredients() {
   const [activeTab, setActiveTab] = useState("buns");
   const simpleBarRef = useRef(null);
   const bunsRef = useRef(null);
@@ -23,6 +20,7 @@ export default function BurgerIngredients({ ingredients }) {
   const tabsRef = useRef(null);
   const dispatch = useDispatch();
   const isModal = useSelector(getIsModal);
+  const ingredients = useSelector(getAllIngredients);
   const selectedIngredient = useSelector(getSelectedIngredient);
 
   useEffect(() => {
@@ -82,6 +80,3 @@ export default function BurgerIngredients({ ingredients }) {
     </React.Fragment>
   );
 }
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientType),
-};

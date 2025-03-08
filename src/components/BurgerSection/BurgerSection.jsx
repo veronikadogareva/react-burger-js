@@ -20,4 +20,5 @@ export default function BurgerSection({ ingredients, title, ref }) {
 BurgerSection.propTypes = {
   ingredients: PropTypes.arrayOf(IngredientType),
   title: PropTypes.string,
+  ref: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.instanceOf(Element) })]),
 };
