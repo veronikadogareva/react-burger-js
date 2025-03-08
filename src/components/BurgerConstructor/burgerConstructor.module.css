@@ -9,16 +9,26 @@
   align-items: center;
   max-width: 600px;
 }
-.container ul >div{width: 100%;}
-.container .simplebar-content-wrapper{overflow-x: hidden!important;}
+.container ul > div {
+  width: 100%;
+}
+.container .simplebar-content-wrapper {
+  overflow-x: hidden !important;
+}
 .container li {
   position: relative;
   width: 100%;
   margin-left: 32px;
 }
-.container ul >div li {margin-left: 16px;}
-.container li:not(:last-child){margin-bottom: 10px;}
-.container li:last-child{margin-top: 10px;}
+.container ul > div li {
+  margin-left: 16px;
+}
+.container li:not(:last-child) {
+  margin-bottom: 10px;
+}
+.container li:last-child {
+  margin-top: 10px;
+}
 .container li > svg {
   position: absolute;
   left: 0;
@@ -42,4 +52,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+.centerElement {
+  justify-content: center;
+  margin-top: 10px;
 }

@@ -5,6 +5,8 @@
   cursor: pointer;
   color: #f2f2f3;
   position: relative;
+  background-color: var(--background-alt);
+  border-radius: 5px;
 }
 
 .item p {

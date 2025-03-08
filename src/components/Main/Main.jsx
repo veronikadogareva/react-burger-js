@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import mainStyles from "./main.module.css";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import BurgerService from "./Services/BurgerService";
+import { useDispatch } from "react-redux";
+import { loadIngredients } from "../../services/ingredients/action";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export default function Main() {
-  const [ingredients, setIngredients] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    console.log('fsdf')
-    BurgerService.getIngredients()
-      .then((data) => {
-        
-        setIngredients(data.data);
-      })
-      .catch((err) => {
-        console.error("Ошибка при загрузке ингредиентов:", err);
-      });
-  }, []);
+    dispatch(loadIngredients());
+  }, [dispatch]);
   return (
-    <main className={mainStyles.main}>
-      <BurgerIngredients ingredients={ingredients} />
-      <BurgerConstructor ingredients={ingredients} />
-    </main>
+    <DndProvider backend={HTML5Backend}>
+      <main className={mainStyles.main}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </main>
+    </DndProvider>
   );
 }

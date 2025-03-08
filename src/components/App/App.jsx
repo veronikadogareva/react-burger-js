@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import Main from "../Main/Main";
