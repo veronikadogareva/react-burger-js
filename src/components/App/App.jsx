@@ -1,13 +1,18 @@
 import React from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-import Main from "../Main/Main";
+import { Route, Routes } from "react-router-dom";
+import Home from "../../pages/Home";
+import Login from "../../pages/Login";
 
 function App() {
   return (
     <div className={appStyles.app}>
       <AppHeader />
-      <Main />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </div>
   );
 }
