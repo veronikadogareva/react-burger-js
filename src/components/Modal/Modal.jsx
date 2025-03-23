@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 export default function Modal({ children, onClose, title }) {
@@ -21,7 +22,7 @@ export default function Modal({ children, onClose, title }) {
       document.body.style.overflow = "";
       document.removeEventListener("keydown", handleEscKey);
     };
-  }, []);
+  }, [onClose]);
   return ReactDOM.createPortal(
     <React.Fragment>
       <div className={modalStyles.modal}>
@@ -38,3 +39,9 @@ export default function Modal({ children, onClose, title }) {
     modalRoot
   );
 }
+
+Modal.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+};

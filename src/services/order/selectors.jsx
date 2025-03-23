@@ -1,0 +1,1 @@
+export const getOrderId = state => state.order.id;
