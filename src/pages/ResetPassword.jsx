@@ -3,35 +3,22 @@ import loginStyles from "./login.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 
-function Login() {
-  const emailRef = useRef(null);
+function ResetPassword() {
   const passwordRef = useRef(null);
+  const codeRef = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email,password)
+    const code = codeRef.current.value;
+    console.log(password, code)
   }
   return (
     <div className={loginStyles.container}>
-      <h3 className="text text_type_main-medium">Вход</h3>
+      <h3 className="text text_type_main-medium">Восстановление пароля</h3>
       <form onSubmit={handleSubmit}>
         <Input
           type={"text"}
-          placeholder={"E-mail"}
-          //   onChange={(e) => setValue(e.target.value)}
-          //   value={value}
-          name={"e-mail"}
-          error={false}
-          ref={emailRef}
-          //   onIconClick={onIconClick}
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-        />
-        <Input
-          type={"text"}
-          placeholder={"Пароль"}
+          placeholder={"Введите новый пароль"}
           //   onChange={(e) => setValue(e.target.value)}
           //   value={value}
           name={"password"}
@@ -41,22 +28,30 @@ function Login() {
           errorText={"Ошибка"}
           size={"default"}
           extraClass="ml-1"
-          icon="EyeIcon"
+        />
+        <Input
+          type={"text"}
+          placeholder={"Введите код из письма"}
+          //   onChange={(e) => setValue(e.target.value)}
+          //   value={value}
+          name={"code"}
+          error={false}
+          ref={codeRef}
+          //   onIconClick={onIconClick}
+          errorText={"Ошибка"}
+          size={"default"}
+          extraClass="ml-1"
         />
         <Button htmlType="submit" type="primary" size="large" >
-          Войти
+            Сохранить
         </Button>
       </form>
       <div className={loginStyles.group}>
-        <span className="text text_type_main-default">Вы — новый пользователь?</span>
-        <Link to="/register" className="text text_type_main-default">Зарегистрироваться</Link>
-      </div>
-      <div className={loginStyles.group}>
-        <span className="text text_type_main-default">Забыли пароль?</span>
-        <Link to="/forgot-password" className="text text_type_main-default">Восстановить пароль</Link>
+        <span className="text text_type_main-default">Вспомнили пароль?</span>
+        <Link to="/login" className="text text_type_main-default">Войти</Link>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default ResetPassword;

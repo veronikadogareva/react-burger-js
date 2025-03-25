@@ -1,21 +1,37 @@
 import React, {useRef} from "react";
+import registerStyles from "./register.module.css";
 import loginStyles from "./login.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 
-function Login() {
+function Register() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const nameRef = useRef(null);
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email,password)
+    const name = nameRef.current.value;
+    console.log(name, email,password)
   }
   return (
     <div className={loginStyles.container}>
-      <h3 className="text text_type_main-medium">Вход</h3>
+      <h3 className="text text_type_main-medium">Регистрация</h3>
       <form onSubmit={handleSubmit}>
+      <Input
+          type={"text"}
+          placeholder={"Имя"}
+          //   onChange={(e) => setValue(e.target.value)}
+          //   value={value}
+          name={"name"}
+          error={false}
+          ref={nameRef}
+          //   onIconClick={onIconClick}
+          errorText={"Ошибка"}
+          size={"default"}
+          extraClass="ml-1"
+        />
         <Input
           type={"text"}
           placeholder={"E-mail"}
@@ -44,19 +60,15 @@ function Login() {
           icon="EyeIcon"
         />
         <Button htmlType="submit" type="primary" size="large" >
-          Войти
+            Зарегистрироваться
         </Button>
       </form>
       <div className={loginStyles.group}>
-        <span className="text text_type_main-default">Вы — новый пользователь?</span>
-        <Link to="/register" className="text text_type_main-default">Зарегистрироваться</Link>
-      </div>
-      <div className={loginStyles.group}>
-        <span className="text text_type_main-default">Забыли пароль?</span>
-        <Link to="/forgot-password" className="text text_type_main-default">Восстановить пароль</Link>
+        <span className="text text_type_main-default">Уже зарегистрированы?</span>
+        <Link to="/login" className="text text_type_main-default">Войти</Link>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;
