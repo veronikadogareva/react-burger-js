@@ -1,23 +1,25 @@
 import React from "react";
 import profileStyles from "./profile.module.css";
-import { NavLink, Routes, Route } from "react-router-dom";
-import ProfileForm from "../components/ProfileForm/ProfileForm";
-import Orders from "../components/Orders/Orders";
+import { NavLink, Outlet } from "react-router-dom";
 
 function Profile() {
   return (
     <div className={profileStyles.container}>
-        <div className="nav">
-            <NavLink to="">Профиль</NavLink>
-            <NavLink to="orders">История заказов</NavLink>
-            <NavLink to="orders/:id">Выход</NavLink>
-        </div>
-        <div className="content">
-            <Routes>
-                <Route index element={<ProfileForm />}/>
-                <Route path="orders" element={<Orders />} />
-            </Routes>
-        </div>
+      <div className={profileStyles.nav}>
+        <NavLink to="" className={({ isActive }) => (isActive ? profileStyles.activeLink : "")}>
+          Профиль
+        </NavLink>
+        <NavLink to="orders" className={({ isActive }) => (isActive ? profileStyles.activeLink : "")}>
+          История заказов
+        </NavLink>
+        <NavLink to="orders/:id" className={({ isActive }) => (isActive ? profileStyles.activeLink : "")}>
+          Выход
+        </NavLink>
+        <span className="text text_type_main-default text_color_inactive">В этом разделе вы можете изменить свои персональные данные</span>
+      </div>
+      <div className={profileStyles.content}>
+        <Outlet />
+      </div>
     </div>
   );
 }
