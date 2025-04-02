@@ -8,12 +8,15 @@ import { getConstructorBun, getConstructorIngredients } from "../../services/con
 import { useDrag } from "react-dnd";
 import IngredientType from "../../utils/types";
 import { v4 as uuidv4 } from "uuid";
+import { Link, useLocation } from "react-router-dom";
+import { getAllIngredients } from "../../services/ingredients/selectors";
 
 export default function BurgerIngredient({ ingredient }) {
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
-  const constructorIngredients = useSelector(getConstructorIngredients);
+  const constructorIngredients = useSelector(getAllIngredients);
   const constructorBun = useSelector(getConstructorBun);
+  const location = useLocation();
   useEffect(() => {
     if (ingredient.type !== "bun") {
       setCount(constructorIngredients.filter((item) => item._id === ingredient._id).length);
@@ -59,15 +62,21 @@ export default function BurgerIngredient({ ingredient }) {
     }),
   }));
   return (
-    <li className={burgerIngredientStyles.item} onClick={clickIngregient} ref={drag}>
-      <img src={ingredient.image} alt={ingredient.name} />
-      <span className={`text text_type_digits-default ${burgerIngredientStyles.price}`}>
-        {ingredient.price}
-        <CurrencyIcon type="primary" />
-      </span>
-      <p className="text text_type_main-default">{ingredient.name}</p>
-      {count === 0 ? "" : <span className={`text text_type_digits-default ${burgerIngredientStyles.count}`}>{count}</span>}
-    </li>
+    <Link to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }}>
+      <li
+        className={burgerIngredientStyles.item}
+        // onClick={clickIngregient}
+        ref={drag}
+      >
+        <img src={ingredient.image} alt={ingredient.name} />
+        <span className={`text text_type_digits-default ${burgerIngredientStyles.price}`}>
+          {ingredient.price}
+          <CurrencyIcon type="primary" />
+        </span>
+        <p className="text text_type_main-default">{ingredient.name}</p>
+        {count === 0 ? "" : <span className={`text text_type_digits-default ${burgerIngredientStyles.count}`}>{count}</span>}
+      </li>
+    </Link>
   );
 }
 BurgerIngredient.propTypes = {

@@ -27,7 +27,7 @@ export default function Modal({ children, onClose, title }) {
     <React.Fragment>
       <div className={modalStyles.modal}>
         <div className={modalStyles.top}>
-          <h2 className="text text_type_main-large">{title}</h2>
+          {/* <h2 className="text text_type_main-large">{title}</h2> */}
           <button type="button" onClick={onClose}>
             <CloseIcon type="primary" />
           </button>
