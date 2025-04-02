@@ -5,6 +5,10 @@ export default class BaseService {
     const data = await res.json();
     return res.ok ? data : Promise.reject(data);
   }
+  static setTokens(accessToken, refreshToken) {
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+  }
   static async refreshToken() {
     const res = await fetch(`${BASEURL}/auth/token`, {
       method: "POST",
@@ -12,26 +16,24 @@ export default class BaseService {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        token: localStorage.getItem("refreshToken")
+        token: localStorage.getItem("refreshToken"),
       }),
     });
     const refreshData = await this.checkResponse(res);
     if (!refreshData.success) {
       return Promise.reject(refreshData);
     }
-    localStorage.setItem("accessToken", refreshData.accessToken);
-    localStorage.setItem("refreshToken", refreshData.refreshToken);
-
+    this.setTokens(refreshData.accessToken, refreshData.refreshToken);
     return refreshData;
   }
   static async sendRequest(url, options = {}) {
     const fullUrl = BASEURL + url;
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       options.headers = {
         ...options.headers,
         Authorization: accessToken,
-      }
+      };
     }
     try {
       const res = await fetch(fullUrl, options);
@@ -47,7 +49,7 @@ export default class BaseService {
         const res = await fetch(fullUrl, options);
         return await this.checkResponse(res);
       } else {
-        console.error('Ошибка запроса:', err);
+        console.error("Ошибка запроса:", err);
         throw err;
       }
     }
@@ -60,16 +62,19 @@ export default class BaseService {
     const url = "/orders";
     return this.sendRequest(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json", },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData),
     });
   }
-  static register(data) {
-    return this.sendRequest("/auth/register", {
+  static async register(data) {
+    const requestData = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    });
+    };
+    const registerData = await fetch(BASEURL + "/auth/register", requestData);
+    console.log(registerData);
+    this.setTokens(registerData.accessToken, registerData.refreshToken);
   }
   static login(data) {
     return this.sendRequest("/auth/login", {
@@ -100,5 +105,4 @@ export default class BaseService {
       }),
     });
   }
-
 }
