@@ -1,7 +1,7 @@
 import React from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Register from "../../pages/Register";
@@ -14,8 +14,13 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 
 function App() {
-  let location = useLocation();
-  let state = location.state;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const state = location.state;
+  const onModalClose = () => {
+    navigate('/');
+  }
+  
 
   return (
     <div className={appStyles.app}>
@@ -37,7 +42,7 @@ function App() {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal>
+              <Modal onClose={onModalClose}>
                 <IngredientDetails />
               </Modal>
             }

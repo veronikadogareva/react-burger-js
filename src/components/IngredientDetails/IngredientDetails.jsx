@@ -16,6 +16,9 @@ export default function IngredientDetails() {
   const ingredients = useSelector(getAllIngredients);
   const ingredient = ingredients.filter((ingredient) => ingredient._id === id)[0];
   console.log(ingredients);
+  if (!ingredient) {
+    return <h2 class="text text_type_main-large">Загрузка...</h2>;
+  }
   return (
     <div className={ingredientDetailsStyles.container}>
       <h2 className="text text_type_main-large">Детали ингредиента</h2>

@@ -6,7 +6,6 @@ export const loadIngredients = () => (dispatch) => {
   dispatch({ type: INGREDIENTS_LOADING });
   return BaseService.getIngredients()
     .then((res) => {
-      console.log(1212);
       dispatch({
         type: INGREDIENTS_SUCCESS,
         payload: res.data,
