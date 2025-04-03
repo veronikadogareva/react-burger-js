@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import BaseService from "../../utils/BaseService";
 export const USER_SET_AUTH_CHECKED = "USER/AUTH_CHEKED";
 export const USER_SET = "USER/SET";
-export const login = () => (dispatch) => {
-  return BaseService.login().then((res) => {
+export const login = (data) => (dispatch) => {
+  return BaseService.login(data).then((res) => {
     dispatch({
       type: USER_SET,
       payload: res.user,
@@ -30,23 +30,23 @@ export const register = (data) => (dispatch) => {
 };
 export const checkUserAuth = () => (dispatch) => {
   if (localStorage.getItem("accessToken")) {
-    BaseService.getUserData().then(res => {
-        dispatch({
-          type: USER_SET,
-          payload: res.user,
-        });
-        dispatch({
-          type: USER_SET_AUTH_CHECKED,
-          payload: true,
-        });
-      })
+    BaseService.getUserData().then((res) => {
+      dispatch({
+        type: USER_SET,
+        payload: res.user,
+      });
+      dispatch({
+        type: USER_SET_AUTH_CHECKED,
+        payload: true,
+      });
+    });
   } else {
     dispatch({
       type: USER_SET_AUTH_CHECKED,
       payload: true,
     });
   }
-}
+};
 export const logout = (navigate) => (dispatch) => {
   return BaseService.logout().then(() => {
     dispatch({
@@ -56,5 +56,13 @@ export const logout = (navigate) => (dispatch) => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     navigate("/");
-  })
-}
+  });
+};
+export const updateUserInfo = (data) => (dispatch) => {
+  return BaseService.updateUserData(data).then((res) => {
+    dispatch({
+      type: USER_SET,
+      payload: res.user,
+    });
+  });
+};

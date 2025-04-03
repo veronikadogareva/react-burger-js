@@ -1,17 +1,24 @@
 import React, { useRef, useState } from "react";
 import loginStyles from "./login.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import BaseService from "../utils/BaseService";
 
 function ResetPassword() {
   const passwordRef = useRef(null);
   const codeRef = useRef(null);
   const [icon, setIcon] = useState("ShowIcon");
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const password = passwordRef.current.value;
     const code = codeRef.current.value;
-    console.log(password, code);
+    BaseService.resetPassword({
+      password: password,
+      token: code,
+    }).then(() => {
+      navigate("/login");
+    });
   };
   const onIconClick = (e) => {
     setIcon((prevIcon) => {

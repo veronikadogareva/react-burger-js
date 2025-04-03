@@ -15,11 +15,11 @@ function Login() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     dispatch(
-          login({
-            email: email,
-            password: password,
-          })
-        );
+      login({
+        email: email,
+        password: password,
+      })
+    );
   };
   const onIconClick = (e) => {
     setIcon((prevIcon) => {

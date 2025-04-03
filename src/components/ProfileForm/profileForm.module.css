@@ -1,0 +1,20 @@
+.form {
+  cursor: default;
+}
+.buttons {
+  margin-left: auto;
+}
+.buttons .btn {
+  font-family: "Jet Brains Mono";
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  color: #4c4cff;
+  margin-right: 28px;
+  transition: 0.2s;
+}
+.buttons .btn:hover {
+  color: #8787ed;
+}

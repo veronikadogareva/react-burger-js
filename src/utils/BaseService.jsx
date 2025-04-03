@@ -102,4 +102,18 @@ export default class BaseService {
       }),
     });
   }
+  static forgotPassword(data) {
+    return this.sendRequest("/password-reset", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  }
+  static resetPassword(data) {
+    return this.sendRequest("/password-reset/reset", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  }
 }
