@@ -51,9 +51,9 @@ export default function BurgerConstructor() {
             </li>
           ) : (
             <li>
-              <div class="constructor-element constructor-element_pos_top">
-                <span class="constructor-element__row">
-                  <span class={`constructor-element__text ${burgerConstructorStyles.centerElement}`}>Добавьте булку</span>
+              <div className="constructor-element constructor-element_pos_top">
+                <span className="constructor-element__row">
+                  <span className={`constructor-element__text ${burgerConstructorStyles.centerElement}`}>Добавьте булку</span>
                 </span>
               </div>
             </li>
@@ -65,9 +65,9 @@ export default function BurgerConstructor() {
               })
             ) : (
               <li>
-                <div class="constructor-element constructor-element_pos_main">
-                  <span class="constructor-element__row">
-                    <span class={`constructor-element__text ${burgerConstructorStyles.centerElement}`}>Добавьте начинку</span>
+                <div className="constructor-element constructor-element_pos_main">
+                  <span className="constructor-element__row">
+                    <span className={`constructor-element__text ${burgerConstructorStyles.centerElement}`}>Добавьте начинку</span>
                   </span>
                 </div>
               </li>
@@ -79,9 +79,9 @@ export default function BurgerConstructor() {
             </li>
           ) : (
             <li>
-              <div class="constructor-element constructor-element_pos_bottom">
-                <span class="constructor-element__row">
-                  <span class={`constructor-element__text ${burgerConstructorStyles.centerElement}`}>Добавьте булку</span>
+              <div className="constructor-element constructor-element_pos_bottom">
+                <span className="constructor-element__row">
+                  <span className={`constructor-element__text ${burgerConstructorStyles.centerElement}`}>Добавьте булку</span>
                 </span>
               </div>
             </li>

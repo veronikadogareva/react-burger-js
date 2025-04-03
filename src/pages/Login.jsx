@@ -2,16 +2,24 @@ import React, { useRef, useState } from "react";
 import loginStyles from "./login.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../services/user/action";
 
 function Login() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const dispatch = useDispatch();
   const [icon, setIcon] = useState("ShowIcon");
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email, password);
+    dispatch(
+          login({
+            email: email,
+            password: password,
+          })
+        );
   };
   const onIconClick = (e) => {
     setIcon((prevIcon) => {

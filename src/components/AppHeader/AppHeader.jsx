@@ -26,7 +26,7 @@ export default function AppHeader() {
             )}
           </NavLink>
         </div>
-        <NavLink to="/login" className={({ isActive }) => (isActive ? headerStyles.activelink : "")}>
+        <NavLink to="/profile" className={({ isActive }) => (isActive ? headerStyles.activelink : "")}>
           {({ isActive }) => (
             <>
               <ProfileIcon type={isActive ? "primary" : "secondary"} /> Личный кабинет

@@ -24,7 +24,6 @@ function Register() {
         name: name,
       })
     );
-    console.log(name, email, password);
   };
   const onIconClick = (e) => {
     setIcon((prevIcon) => {

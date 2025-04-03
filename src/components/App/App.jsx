@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import appStyles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -12,26 +12,32 @@ import ProfileForm from "../ProfileForm/ProfileForm";
 import Orders from "../Orders/Orders";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
+import { useDispatch } from "react-redux";
+import { checkUserAuth } from "../../services/user/action";
+import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const state = location.state;
+  useEffect(() => {
+    dispatch(checkUserAuth());
+  }, [])
   const onModalClose = () => {
     navigate('/');
   }
-  
 
   return (
     <div className={appStyles.app}>
       <AppHeader />
       <Routes location={state?.backgroundLocation || location}>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/profile" element={<Profile />}>
+        <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
+        <Route path="/register" element={<OnlyUnAuth component={<Register />} />} />
+        <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
+        <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
+        <Route path="/profile" element={<OnlyAuth component={<Profile />}/>}>
           <Route path="" element={<ProfileForm />} />
           <Route path="orders" element={<Orders />} />
         </Route>

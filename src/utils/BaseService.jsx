@@ -67,14 +67,11 @@ export default class BaseService {
     });
   }
   static async register(data) {
-    const requestData = {
+    return this.sendRequest("/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    };
-    const registerData = await fetch(BASEURL + "/auth/register", requestData);
-    console.log(registerData);
-    this.setTokens(registerData.accessToken, registerData.refreshToken);
+    });
   }
   static login(data) {
     return this.sendRequest("/auth/login", {

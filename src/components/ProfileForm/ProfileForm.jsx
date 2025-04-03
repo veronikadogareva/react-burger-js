@@ -1,8 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import profileFormStyles from "./profileForm.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function ProfileForm() {
+  const [icon, setIcon] = useState("ShowIcon");
+  const [showPassword, setShowPassword] = useState(false);
   const nameRef = useRef(null);
   const loginRef = useRef(null);
   const passwordRef = useRef(null);
@@ -12,6 +14,12 @@ function ProfileForm() {
     const login = loginRef.current.value;
     const password = passwordRef.current.value;
     console.log(name, password);
+  };
+  const onIconClick = (e) => {
+    setIcon((prevIcon) => {
+      return prevIcon === "ShowIcon" ? "HideIcon" : "ShowIcon";
+    });
+    setShowPassword(!showPassword);
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -27,6 +35,7 @@ function ProfileForm() {
         errorText={"Ошибка"}
         size={"default"}
         extraClass="ml-1"
+        icon="EditIcon"
       />
       <Input
         type={"text"}
@@ -40,21 +49,9 @@ function ProfileForm() {
         errorText={"Ошибка"}
         size={"default"}
         extraClass="ml-1"
+        icon="EditIcon"
       />
-      <Input
-        type={"text"}
-        placeholder={"Пароль"}
-        //   onChange={(e) => setValue(e.target.value)}
-        //   value={value}
-        name={"password"}
-        error={false}
-        ref={passwordRef}
-        //   onIconClick={onIconClick}
-        errorText={"Ошибка"}
-        size={"default"}
-        extraClass="ml-1"
-        icon="EyeIcon"
-      />
+      <Input type={showPassword ? "text" : "password"} placeholder={"Пароль"} name={"password"} error={false} ref={passwordRef} onIconClick={onIconClick} errorText={"Ошибка"} size={"default"} extraClass="ml-1" icon="EditIcon" />
     </form>
   );
 }
