@@ -1,5 +1,5 @@
-import { data, useNavigate } from "react-router-dom";
 import BaseService from "../../utils/BaseService";
+import { CONSTRUCTOR_INGREDIENTS_CLEAR } from "../constructorIngredients/action";
 export const USER_SET_AUTH_CHECKED = "USER/AUTH_CHEKED";
 export const USER_SET = "USER/SET";
 export const login = (data) => (dispatch) => {
@@ -53,6 +53,9 @@ export const logout = (navigate) => (dispatch) => {
       type: USER_SET,
       payload: null,
     });
+    dispatch({
+      type:CONSTRUCTOR_INGREDIENTS_CLEAR,
+    })
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     navigate("/");

@@ -6,14 +6,16 @@ import { useDispatch } from "react-redux";
 import { login } from "../services/user/action";
 
 function Login() {
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const inputRefs = {
+    email: useRef(null),
+    password: useRef(null),
+  };
   const dispatch = useDispatch();
   const [icon, setIcon] = useState("ShowIcon");
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
+    const email = inputRefs.email.current.value;
+    const password = inputRefs.password.current.value;
     dispatch(
       login({
         email: email,
@@ -31,8 +33,8 @@ function Login() {
     <div className={loginStyles.container}>
       <h3 className="text text_type_main-medium">Вход</h3>
       <form onSubmit={handleSubmit}>
-        <Input type={"text"} placeholder={"E-mail"} name={"e-mail"} error={false} ref={emailRef} errorText={"Ошибка"} size={"default"} extraClass="ml-1" />
-        <Input type={"text"} placeholder={"Пароль"} name={"password"} error={false} ref={passwordRef} onIconClick={onIconClick} errorText={"Ошибка"} size={"default"} extraClass="ml-1" icon={icon} />
+        <Input type={"text"} placeholder={"E-mail"} name={"e-mail"} error={false} ref={inputRefs.email} errorText={"Ошибка"} size={"default"} extraClass="ml-1" autoComplete="email"/>
+        <Input type={icon === "ShowIcon" ? "password" : "text"} placeholder={"Пароль"} name={"password"} error={false} ref={inputRefs.password} onIconClick={onIconClick} errorText={"Ошибка"} size={"default"} extraClass="ml-1" icon={icon} autoComplete="current-password"/>
         <Button htmlType="submit" type="primary" size="large">
           Войти
         </Button>

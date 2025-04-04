@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import ingredientDetailsStyles from "./ingredientDetails.module.css";
-import IngredientType from "../../utils/types";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllIngredients } from "../../services/ingredients/selectors";
 import { loadIngredients } from "../../services/ingredients/action";
+import { RingLoader } from "react-spinners";
 
 export default function IngredientDetails() {
   let { id } = useParams();
@@ -15,9 +14,8 @@ export default function IngredientDetails() {
   }, [dispatch]);
   const ingredients = useSelector(getAllIngredients);
   const ingredient = ingredients.filter((ingredient) => ingredient._id === id)[0];
-  console.log(ingredients);
   if (!ingredient) {
-    return <h2 class="text text_type_main-large">Загрузка...</h2>;
+    return <RingLoader/>;
   }
   return (
     <div className={ingredientDetailsStyles.container}>
@@ -45,6 +43,3 @@ export default function IngredientDetails() {
     </div>
   );
 }
-IngredientDetails.propTypes = {
-  ingredient: IngredientType.isRequired,
-};

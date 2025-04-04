@@ -10,16 +10,21 @@ import BurgerConstructorElement from "../BurgerConstructorElement/BurgerConstruc
 import { useDispatch, useSelector } from "react-redux";
 import { getConstructorBun, getConstructorIngredients } from "../../services/constructorIngredients/selectors";
 import { getOrderId } from "../../services/order/selectors";
-import { sendOrder } from "../../services/order/action";
+import { ORDER_CLEAR, sendOrder } from "../../services/order/action";
 import { useDrop } from "react-dnd";
+import { getUser } from "../../services/user/selectors";
+import { useNavigate } from "react-router-dom";
 
 export default function BurgerConstructor() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [error,setError] = useState(null);
   const { isModalOpen, openModal, closeModal } = useModal();
   const [price, setPrice] = useState(0);
   const ingredients = useSelector(getConstructorIngredients);
   const bun = useSelector(getConstructorBun);
   const orderId = useSelector(getOrderId);
-  const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const totalPrice = useMemo(() => {
     return ingredients.reduce((total, ingredient) => total + ingredient.price, 0) + (bun ? bun.price * 2 : 0);
   }, [ingredients, bun]);
@@ -27,6 +32,17 @@ export default function BurgerConstructor() {
     setPrice(totalPrice);
   }, [totalPrice]);
   const clickOrderButton = () => {
+      if (!user) {
+        navigate("/login");
+        return;
+      }
+      if (!ingredients || !bun) {
+        setError('Добавьте ингредиенты');
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+        return;
+      }
     const order = {
       ingredients: [bun?._id, ...ingredients.map((ingredient) => ingredient._id), bun?._id],
     };
@@ -41,6 +57,12 @@ export default function BurgerConstructor() {
       canDrop: monitor.canDrop(),
     }),
   }));
+  const onClickModal = () => {
+    closeModal();
+    dispatch({
+      type:ORDER_CLEAR,
+    })
+  }
   return (
     <React.Fragment>
       <section className={burgerConstructorStyles.container}>
@@ -87,6 +109,7 @@ export default function BurgerConstructor() {
             </li>
           )}
         </ul>
+        <span style={{color:'#FB76CF'}}>{error}</span>
         <div className={burgerConstructorStyles.total}>
           <span className="text text_type_digits-medium">
             {price}
@@ -98,7 +121,7 @@ export default function BurgerConstructor() {
         </div>
       </section>
       {isModalOpen && (
-        <Modal onClose={closeModal}>
+        <Modal onClose={onClickModal}>
           <OrderDetails orderId={orderId} />
         </Modal>
       )}

@@ -9,12 +9,11 @@ import { useDrag } from "react-dnd";
 import IngredientType from "../../utils/types";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useLocation } from "react-router-dom";
-import { getAllIngredients } from "../../services/ingredients/selectors";
 
 export default function BurgerIngredient({ ingredient }) {
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
-  const constructorIngredients = useSelector(getAllIngredients);
+  const constructorIngredients = useSelector(getConstructorIngredients);
   const constructorBun = useSelector(getConstructorBun);
   const location = useLocation();
   useEffect(() => {
@@ -31,12 +30,6 @@ export default function BurgerIngredient({ ingredient }) {
       }
     }
   }, [constructorBun, ingredient.type, ingredient._id]);
-  const clickIngregient = () => {
-    dispatch({
-      type: INGREDIENT_ADD,
-      payload: ingredient,
-    });
-  };
   const createNewIngredientWithUnique = (ingredient) => {
     return {
       ...ingredient,

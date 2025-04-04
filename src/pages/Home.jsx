@@ -13,7 +13,7 @@ function Home() {
   }, [dispatch]);
   return (
     <DndProvider backend={HTML5Backend}>
-      <main classNameName={homeStyles.main}>
+      <main className={homeStyles.main}>
         <BurgerIngredients />
         <BurgerConstructor />
       </main>

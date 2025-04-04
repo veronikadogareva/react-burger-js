@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import loginStyles from "./login.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import BaseService from "../utils/BaseService";
 
 function ForgotPassword() {
@@ -15,7 +14,9 @@ function ForgotPassword() {
     BaseService.forgotPassword({
       email: email,
     }).then(() => {
-      navigate("/reset-password");
+      navigate("/reset-password", {
+        state: { from: "/forgot-password" }
+      });
     });
   };
   return (

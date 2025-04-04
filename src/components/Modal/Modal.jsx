@@ -7,7 +7,7 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
-export default function Modal({ children, onClose, title }) {
+export default function Modal({ children, onClose }) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const handleEscKey = (event) => {
@@ -25,14 +25,14 @@ export default function Modal({ children, onClose, title }) {
   }, [onClose]);
   return ReactDOM.createPortal(
     <React.Fragment>
-      <div classNameName={modalStyles.modal}>
-        <div classNameName={modalStyles.top}>
-          {/* <h2 classNameName="text text_type_main-large">{title}</h2> */}
+      <div className={modalStyles.modal}>
+        <div className={modalStyles.top}>
+          {/* <h2 className="text text_type_main-large">{title}</h2> */}
           <button type="button" onClick={onClose}>
             <CloseIcon type="primary" />
           </button>
         </div>
-        <div classNameName={modalStyles.content}>{children}</div>
+        <div className={modalStyles.content}>{children}</div>
       </div>
       <ModalOverlay onClose={onClose} />
     </React.Fragment>,
@@ -43,5 +43,4 @@ export default function Modal({ children, onClose, title }) {
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
   onClose: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
 };

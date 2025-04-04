@@ -3,7 +3,6 @@ import profileFormStyles from "./profileForm.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../services/user/selectors";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 import { updateUserInfo } from "../../services/user/action";
 
 function ProfileForm() {
@@ -24,7 +23,7 @@ function ProfileForm() {
     if (inputRefs.name.current) inputRefs.name.current.value = user.name || "";
     if (inputRefs.login.current) inputRefs.login.current.value = user.email || "";
     if (inputRefs.password.current) inputRefs.password.current.value = "";
-  }, [user]);
+  }, [user, inputRefs.login, inputRefs.name, inputRefs.password]);
   const handleSubmit = (e) => {
     e.preventDefault();
     const name = inputRefs.name.current.value;
@@ -40,13 +39,19 @@ function ProfileForm() {
     setShowButtons(false);
   };
   const toggleInput = (inputName) => {
-    setInputsState((prev) => ({
-      ...prev,
-      [inputName]: {
+    setInputsState((prev) => {
+      const newState = { ...prev };
+      for (let key in newState) {
+        if (key !== inputName) {
+          newState[key] = { isDisabled: true, icon: "EditIcon" };
+        }
+      }
+      newState[inputName] = {
         isDisabled: !prev[inputName].isDisabled,
         icon: prev[inputName].isDisabled ? "CloseIcon" : "EditIcon",
-      },
-    }));
+      };
+      return newState;
+    });
     setTimeout(() => {
       if (inputRefs[inputName].current) {
         inputRefs[inputName].current.focus();

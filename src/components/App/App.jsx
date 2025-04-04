@@ -23,11 +23,10 @@ function App() {
   const state = location.state;
   useEffect(() => {
     dispatch(checkUserAuth());
-  }, [])
+  }, [dispatch])
   const onModalClose = () => {
     navigate('/');
   }
-
   return (
     <div className={appStyles.app}>
       <AppHeader />
