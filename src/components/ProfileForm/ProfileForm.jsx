@@ -37,6 +37,11 @@ function ProfileForm() {
       })
     );
     setShowButtons(false);
+    setInputsState({
+      name: { isDisabled: true, icon: "EditIcon" },
+      login: { isDisabled: true, icon: "EditIcon" },
+      password: { isDisabled: true, icon: "EditIcon" },
+    });
   };
   const toggleInput = (inputName) => {
     setInputsState((prev) => {
@@ -70,6 +75,11 @@ function ProfileForm() {
     inputRefs.login.current.value = user.email || "";
     inputRefs.password.current.value = "";
     setShowButtons(false);
+    setInputsState({
+      name: { isDisabled: true, icon: "EditIcon" },
+      login: { isDisabled: true, icon: "EditIcon" },
+      password: { isDisabled: true, icon: "EditIcon" },
+    });
   };
   return (
     <form onSubmit={handleSubmit} className={profileFormStyles.form}>

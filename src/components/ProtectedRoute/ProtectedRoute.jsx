@@ -3,6 +3,7 @@ import { getIsAuthChecked, getUser} from "../../services/user/selectors";
 import { Navigate, useLocation } from "react-router-dom";
 import { RingLoader } from "react-spinners";
 import PropTypes from "prop-types";
+import protectedRouteStyles from "./protectedRoute.module.css";
 
 const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
     const isAuthChecked = useSelector(getIsAuthChecked);
@@ -10,7 +11,7 @@ const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
     const location = useLocation();
 
     if (!isAuthChecked) {
-        return <div style={{width:"100%",height:"80vh", justifyContent:"center",alignItems:"center", display:"flex"}}><RingLoader color="#00cccc" /></div>
+        return <div className={protectedRouteStyles.loader}><RingLoader color="#00cccc" /></div>
     }
     if (onlyUnAuth && user) {
         const { from } = location.state || { from: { pathname: "/" } };

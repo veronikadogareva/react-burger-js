@@ -1,8 +1,9 @@
-import { USER_SET, USER_SET_AUTH_CHECKED } from "./action";
+import { USER_ERROR, USER_SET, USER_SET_AUTH_CHECKED } from "./action";
 
 const initialState = {
   user: null,
   isAuthChecked: false,
+  error:null,
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -14,8 +15,14 @@ export const reducer = (state = initialState, action) => {
     case USER_SET:
       return {
         ...state,
+        error:null,
         user: action.payload,
       };
+    case USER_ERROR:
+      return {
+        ...state,
+        error:action.payload,
+      }
     default:
       return state;
   }

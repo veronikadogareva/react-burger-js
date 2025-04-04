@@ -8,7 +8,7 @@ export default function OrderDetails({ orderId }) {
   if (!orderId) {
     return (
       <>
-        <h2 className="text text_type_main-large" style={{paddingBottom:"100px"}}>Заказ обрабатывается...</h2>
+        <h2 className={orderDetailsStyles.loading}>Заказ обрабатывается...</h2>
         <RingLoader color="#00cccc" />
       </>
     );

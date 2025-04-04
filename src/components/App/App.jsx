@@ -15,6 +15,7 @@ import Modal from "../Modal/Modal";
 import { useDispatch } from "react-redux";
 import { checkUserAuth } from "../../services/user/action";
 import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
+import { loadIngredients } from "../../services/ingredients/action";
 
 function App() {
   const location = useLocation();
@@ -23,6 +24,7 @@ function App() {
   const state = location.state;
   useEffect(() => {
     dispatch(checkUserAuth());
+    dispatch(loadIngredients());
   }, [dispatch])
   const onModalClose = () => {
     navigate('/');

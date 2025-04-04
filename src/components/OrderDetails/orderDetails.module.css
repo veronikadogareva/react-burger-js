@@ -14,3 +14,12 @@
 .container p:not(:last-child) {
   margin-bottom: 8px;
 }
+.loading{
+  margin: 0;
+  padding: 0;
+  padding-bottom: 100px;
+  font-family: 'Jet Brains Mono';
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 1.25;
+}

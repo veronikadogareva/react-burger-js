@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ingredientDetailsStyles from "./ingredientDetails.module.css";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAllIngredients } from "../../services/ingredients/selectors";
-import { loadIngredients } from "../../services/ingredients/action";
 import { RingLoader } from "react-spinners";
 
 export default function IngredientDetails() {
   let { id } = useParams();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadIngredients());
-  }, [dispatch]);
   const ingredients = useSelector(getAllIngredients);
   const ingredient = ingredients.filter((ingredient) => ingredient._id === id)[0];
   if (!ingredient) {

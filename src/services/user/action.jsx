@@ -2,6 +2,7 @@ import BaseService from "../../utils/BaseService";
 import { CONSTRUCTOR_INGREDIENTS_CLEAR } from "../constructorIngredients/action";
 export const USER_SET_AUTH_CHECKED = "USER/AUTH_CHEKED";
 export const USER_SET = "USER/SET";
+export const USER_ERROR = "USER/ERROR";
 export const login = (data) => (dispatch) => {
   return BaseService.login(data).then((res) => {
     dispatch({
@@ -13,6 +14,11 @@ export const login = (data) => (dispatch) => {
       payload: true,
     });
     BaseService.setTokens(res.accessToken, res.refreshToken);
+  }).catch((err) => {
+    dispatch({
+      type: USER_ERROR,
+      payload: err.message,
+    });
   });
 };
 export const register = (data) => (dispatch) => {
@@ -26,6 +32,11 @@ export const register = (data) => (dispatch) => {
       payload: true,
     });
     BaseService.setTokens(res.accessToken, res.refreshToken);
+  }).catch((err) => {
+    dispatch({
+      type: USER_ERROR,
+      payload: err.message,
+    });
   });
 };
 export const checkUserAuth = () => (dispatch) => {
@@ -38,6 +49,11 @@ export const checkUserAuth = () => (dispatch) => {
       dispatch({
         type: USER_SET_AUTH_CHECKED,
         payload: true,
+      });
+    }).catch((err) => {
+      dispatch({
+        type: USER_ERROR,
+        payload: err.message,
       });
     });
   } else {
@@ -54,12 +70,17 @@ export const logout = (navigate) => (dispatch) => {
       payload: null,
     });
     dispatch({
-      type:CONSTRUCTOR_INGREDIENTS_CLEAR,
+      type: CONSTRUCTOR_INGREDIENTS_CLEAR,
     })
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     navigate("/");
-  });
+  }).catch((err) => {
+    dispatch({
+      type: USER_ERROR,
+      payload: err.message,
+    });
+  });;
 };
 export const updateUserInfo = (data) => (dispatch) => {
   return BaseService.updateUserData(data).then((res) => {
@@ -67,5 +88,10 @@ export const updateUserInfo = (data) => (dispatch) => {
       type: USER_SET,
       payload: res.user,
     });
-  });
+  }).catch((err) => {
+    dispatch({
+      type: USER_ERROR,
+      payload: err.message,
+    });
+  });;
 };
