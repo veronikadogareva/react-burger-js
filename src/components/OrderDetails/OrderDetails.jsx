@@ -2,8 +2,17 @@ import React from "react";
 import orderDetailsStyles from "./orderDetails.module.css";
 import done from "../../images/done.png";
 import PropTypes from "prop-types";
+import { RingLoader } from "react-spinners";
 
 export default function OrderDetails({ orderId }) {
+  if (!orderId) {
+    return (
+      <>
+        <h2 className={orderDetailsStyles.loading}>Заказ обрабатывается...</h2>
+        <RingLoader color="#00cccc" />
+      </>
+    );
+  }
   return (
     <div className={orderDetailsStyles.container}>
       <span className="text text_type_digits-large">{orderId}</span>

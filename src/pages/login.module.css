@@ -1,0 +1,9 @@
+.container{display: flex;flex-direction: column;max-width: 480px;margin: 180px auto 0;}
+.container h3{text-align: center;margin-bottom: 24px;cursor: default;}
+.container form button {width: fit-content;margin: 0 auto;}
+.container form{display: flex;flex-direction: column;gap: 24px;margin-bottom: 80px;}
+.group{display: flex;justify-content: center;gap: 8px;}
+.group:first-of-type{margin-bottom: 5px;}
+.group span{color: #8585AD;transition: .2s;}
+.group a{color: #4C4CFF;text-decoration: none;transition: .2s;}
+.group a:hover{color: #9090ff;}

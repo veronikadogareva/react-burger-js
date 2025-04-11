@@ -1,4 +1,4 @@
-import { ORDER_ERROR, ORDER_SEND, ORDER_SUCCESS } from "./action";
+import { ORDER_CLEAR, ORDER_ERROR, ORDER_SEND, ORDER_SUCCESS } from "./action";
 
 const initialState = {
   id: null,
@@ -23,6 +23,11 @@ export const reducer = (state = initialState, action) => {
         error: action.payload,
         loading: false,
       };
+    case ORDER_CLEAR:
+      return {
+        id: null,
+        error: null,
+      }
     default:
       return state;
   }

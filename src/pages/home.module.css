@@ -1,14 +1,11 @@
-.app {
-  background-color: #131316;
-  box-sizing: border-box;
-}
-.app main {
+.main {
   padding: 0 15px;
   margin: 0 auto 40px;
   max-width: 1240px;
   display: flex;
   gap: 40px;
 }
-.app main section {
+
+.main > section {
   flex: 1;
 }

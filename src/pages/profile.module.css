@@ -1,0 +1,37 @@
+.container {
+  margin: 120px auto 0;
+  max-width: 1240px;
+  padding: 0 15px;
+  display: flex;
+  gap: 60px;
+}
+.nav {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  width: 100%;
+}
+
+.nav a, .nav button {
+  text-decoration: none;
+  display: inline-block;
+  padding: 17px 0;
+  color: #8585ad;
+  font-family: "Jet Brains Mono";
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 0;
+  text-align: left;
+}
+.nav span {
+  margin-top: 80px;
+}
+.nav .activeLink {
+  color: #f2f2f3;
+}
+.content form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
