@@ -23,12 +23,14 @@ function App() {
   const dispatch = useDispatch();
   const state = location.state;
   useEffect(() => {
+    //@ts-expect-error "redux"
     dispatch(checkUserAuth());
+    //@ts-expect-error "redux"
     dispatch(loadIngredients());
-  }, [dispatch])
+  }, [dispatch]);
   const onModalClose = () => {
-    navigate('/');
-  }
+    navigate("/");
+  };
   return (
     <div className={appStyles.app}>
       <AppHeader />
@@ -38,7 +40,7 @@ function App() {
         <Route path="/register" element={<OnlyUnAuth component={<Register />} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
-        <Route path="/profile" element={<OnlyAuth component={<Profile />}/>}>
+        <Route path="/profile" element={<OnlyAuth component={<Profile />} />}>
           <Route path="" element={<ProfileForm />} />
           <Route path="orders" element={<Orders />} />
         </Route>

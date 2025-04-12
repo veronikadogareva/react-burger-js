@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import registerStyles from "./register.module.css";
 import loginStyles from "./login.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,18 +6,20 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../services/user/action";
 import { useForm } from "../hooks/useForm";
+import { TIconsPassword, TRegisterFormValues } from "../utils/types";
 
-function Register() {
-  const { values, handleChange, setValues } = useForm({
-    name:"",
+function Register(): React.JSX.Element {
+  const { values, handleChange, setValues } = useForm<TRegisterFormValues>({
+    name: "",
     email: "",
     password: "",
-  })
+  });
   const dispatch = useDispatch();
-  const [icon, setIcon] = useState("ShowIcon");
-  const handleSubmit = (e) => {
+  const [icon, setIcon] = useState<TIconsPassword>("ShowIcon");
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
+      //@ts-expect-error "redux"
       register({
         email: values.email,
         password: values.password,
@@ -36,7 +38,19 @@ function Register() {
       <form onSubmit={handleSubmit}>
         <Input type={"text"} value={values.name} onChange={handleChange} placeholder={"Имя"} name={"name"} error={false} errorText={"Ошибка"} size={"default"} extraClass="ml-1" />
         <Input type={"text"} value={values.email} onChange={handleChange} placeholder={"E-mail"} name={"email"} error={false} errorText={"Ошибка"} size={"default"} extraClass="ml-1" />
-        <Input type={icon === "ShowIcon" ? "password" : "text"} value={values.password} onChange={handleChange} placeholder={"Пароль"} name={"password"} error={false} onIconClick={onIconClick} errorText={"Ошибка"} size={"default"} extraClass="ml-1" icon={icon} />
+        <Input
+          type={icon === "ShowIcon" ? "password" : "text"}
+          value={values.password}
+          onChange={handleChange}
+          placeholder={"Пароль"}
+          name={"password"}
+          error={false}
+          onIconClick={onIconClick}
+          errorText={"Ошибка"}
+          size={"default"}
+          extraClass="ml-1"
+          icon={icon}
+        />
         <Button htmlType="submit" type="primary" size="large">
           Зарегистрироваться
         </Button>

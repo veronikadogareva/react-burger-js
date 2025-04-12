@@ -4,51 +4,54 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../services/user/selectors";
 import { updateUserInfo } from "../../services/user/action";
+import { TProfileFormValues } from "../../utils/types";
 
 function ProfileForm() {
   const [showButtons, setShowButtons] = useState(false);
   const [inputsState, setInputsState] = useState({
-    name: { isDisabled: true, icon: "EditIcon" },
-    login: { isDisabled: true, icon: "EditIcon" },
-    password: { isDisabled: true, icon: "EditIcon" },
+    name: { isDisabled: true, icon: "EditIcon" } as TProfileFormValues,
+    email: { isDisabled: true, icon: "EditIcon" } as TProfileFormValues,
+    password: { isDisabled: true, icon: "EditIcon" } as TProfileFormValues,
   });
   const user = useSelector(getUser);
   const inputRefs = {
-    name: useRef(null),
-    login: useRef(null),
-    password: useRef(null),
+    name: useRef<HTMLInputElement | null>(null),
+    email: useRef<HTMLInputElement | null>(null),
+    password: useRef<HTMLInputElement | null>(null),
   };
   const dispatch = useDispatch();
   useEffect(() => {
     if (inputRefs.name.current) inputRefs.name.current.value = user.name || "";
-    if (inputRefs.login.current) inputRefs.login.current.value = user.email || "";
+    if (inputRefs.email.current) inputRefs.email.current.value = user.email || "";
     if (inputRefs.password.current) inputRefs.password.current.value = "";
-  }, [user, inputRefs.login, inputRefs.name, inputRefs.password]);
-  const handleSubmit = (e) => {
+  }, [user, inputRefs.email, inputRefs.name, inputRefs.password]);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const name = inputRefs.name.current.value;
-    const login = inputRefs.login.current.value;
-    const password = inputRefs.password.current.value;
+    const name = inputRefs.name.current?.value;
+    const email = inputRefs.email.current?.value;
+    const password = inputRefs.password.current?.value;
     dispatch(
+      //@ts-expect-error "redux"
       updateUserInfo({
         name: name,
-        login: login,
+        login: email,
         password: password,
       })
     );
     setShowButtons(false);
     setInputsState({
       name: { isDisabled: true, icon: "EditIcon" },
-      login: { isDisabled: true, icon: "EditIcon" },
+      email: { isDisabled: true, icon: "EditIcon" },
       password: { isDisabled: true, icon: "EditIcon" },
     });
   };
-  const toggleInput = (inputName) => {
+  const toggleInput = (inputName: "email" | "name" | "password") => {
     setInputsState((prev) => {
       const newState = { ...prev };
       for (let key in newState) {
+        const k = key as keyof typeof newState;
         if (key !== inputName) {
-          newState[key] = { isDisabled: true, icon: "EditIcon" };
+          newState[k] = { isDisabled: true, icon: "EditIcon" };
         }
       }
       newState[inputName] = {
@@ -65,24 +68,25 @@ function ProfileForm() {
   };
   const handleChange = () => {
     const nameChanged = inputRefs.name.current?.value !== user.name;
-    const loginChanged = inputRefs.login.current?.value !== user.email;
+    const loginChanged = inputRefs.email.current?.value !== user.email;
     const passwordChanged = inputRefs.password.current?.value.trim() !== "";
 
     setShowButtons(nameChanged || loginChanged || passwordChanged);
   };
   const handleResetClick = () => {
-    inputRefs.name.current.value = user.name || "";
-    inputRefs.login.current.value = user.email || "";
-    inputRefs.password.current.value = "";
+    if (inputRefs.name.current) inputRefs.name.current.value = user.name || "";
+    if (inputRefs.email.current) inputRefs.email.current.value = user.email || "";
+    if (inputRefs.password.current) inputRefs.password.current.value = "";
     setShowButtons(false);
     setInputsState({
       name: { isDisabled: true, icon: "EditIcon" },
-      login: { isDisabled: true, icon: "EditIcon" },
+      email: { isDisabled: true, icon: "EditIcon" },
       password: { isDisabled: true, icon: "EditIcon" },
     });
   };
   return (
     <form onSubmit={handleSubmit} className={profileFormStyles.form}>
+      {/* @ts-expect-error "yandex" */}
       <Input
         type={"text"}
         placeholder={"Имя"}
@@ -97,20 +101,22 @@ function ProfileForm() {
         disabled={inputsState.name.isDisabled}
         onChange={handleChange}
       />
+      {/* @ts-expect-error "yandex" */}
       <Input
         type={"text"}
         placeholder={"Логин"}
-        name={"login"}
+        name={"email"}
         error={false}
-        ref={inputRefs.login}
-        onIconClick={() => toggleInput("login")}
+        ref={inputRefs.email}
+        onIconClick={() => toggleInput("email")}
         errorText={"Ошибка"}
         size={"default"}
         extraClass="ml-1"
-        icon={inputsState.login.icon}
-        disabled={inputsState.login.isDisabled}
+        icon={inputsState.email.icon}
+        disabled={inputsState.email.isDisabled}
         onChange={handleChange}
       />
+      {/* @ts-expect-error "yandex" */}
       <Input
         type="password"
         placeholder={"Пароль"}

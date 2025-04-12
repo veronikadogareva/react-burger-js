@@ -6,11 +6,15 @@ import { INGREDIENT_ADD } from "../../services/selectedIngredient/action";
 import { CONSTRUCTOR_INGREDIENT_ADD } from "../../services/constructorIngredients/action";
 import { getConstructorBun, getConstructorIngredients } from "../../services/constructorIngredients/selectors";
 import { useDrag } from "react-dnd";
-import IngredientType from "../../utils/types";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useLocation } from "react-router-dom";
+import { TIngredient } from "../../utils/types";
 
-export default function BurgerIngredient({ ingredient }) {
+type TBurgerIngredientProps = {
+  ingredient: TIngredient;
+};
+
+export default function BurgerIngredient({ ingredient }: TBurgerIngredientProps): React.JSX.Element {
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
   const constructorIngredients = useSelector(getConstructorIngredients);
@@ -18,7 +22,7 @@ export default function BurgerIngredient({ ingredient }) {
   const location = useLocation();
   useEffect(() => {
     if (ingredient.type !== "bun") {
-      setCount(constructorIngredients.filter((item) => item._id === ingredient._id).length);
+      setCount(constructorIngredients.filter((item: TIngredient) => item._id === ingredient._id).length);
     }
   }, [constructorIngredients, ingredient._id, ingredient.type]);
   useEffect(() => {
@@ -30,7 +34,7 @@ export default function BurgerIngredient({ ingredient }) {
       }
     }
   }, [constructorBun, ingredient.type, ingredient._id]);
-  const createNewIngredientWithUnique = (ingredient) => {
+  const createNewIngredientWithUnique = (ingredient: TIngredient) => {
     return {
       ...ingredient,
       unique: uuidv4(),
@@ -56,11 +60,7 @@ export default function BurgerIngredient({ ingredient }) {
   }));
   return (
     <Link to={`/ingredients/${ingredient._id}`} state={{ backgroundLocation: location }}>
-      <li
-        className={burgerIngredientStyles.item}
-        // onClick={clickIngregient}
-        ref={drag}
-      >
+      <li className={burgerIngredientStyles.item} ref={drag as unknown as React.RefObject<HTMLLIElement>}>
         <img src={ingredient.image} alt={ingredient.name} />
         <span className={`text text_type_digits-default ${burgerIngredientStyles.price}`}>
           {ingredient.price}
@@ -72,6 +72,3 @@ export default function BurgerIngredient({ ingredient }) {
     </Link>
   );
 }
-BurgerIngredient.propTypes = {
-  ingredient: IngredientType.isRequired,
-};

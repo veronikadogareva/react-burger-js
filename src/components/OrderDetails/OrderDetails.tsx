@@ -1,10 +1,13 @@
 import React from "react";
 import orderDetailsStyles from "./orderDetails.module.css";
 import done from "../../images/done.png";
-import PropTypes from "prop-types";
 import { RingLoader } from "react-spinners";
 
-export default function OrderDetails({ orderId }) {
+type TOrderDetailsProps = {
+  orderId: number;
+};
+
+export default function OrderDetails({ orderId }: TOrderDetailsProps) {
   if (!orderId) {
     return (
       <>
@@ -23,6 +26,3 @@ export default function OrderDetails({ orderId }) {
     </div>
   );
 }
-OrderDetails.propTypes = {
-  orderId: PropTypes.number.isRequired,
-};

@@ -10,34 +10,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSelectedIngredient, getIsModal } from "../../services/selectedIngredient/selectors";
 import { INGREDIENT_DELETE } from "../../services/selectedIngredient/action";
 import { getAllIngredients } from "../../services/ingredients/selectors";
+import type SimpleBarCore from "simplebar-core";
+import { TIngredient, TIngredientRects, TTubs } from "../../utils/types";
 
-export default function BurgerIngredients() {
-  const [activeTab, setActiveTab] = useState("buns");
-  const simpleBarRef = useRef(null);
-  const bunsRef = useRef(null);
-  const saucesRef = useRef(null);
-  const mainRef = useRef(null);
-  const tabsRef = useRef(null);
+export default function BurgerIngredients(): React.JSX.Element {
+  const [activeTab, setActiveTab] = useState<TTubs | string>("buns");
+  const simpleBarRef = useRef<SimpleBarCore | null>(null);
+  const bunsRef = useRef<HTMLLIElement | null>(null);
+  const saucesRef = useRef<HTMLLIElement | null>(null);
+  const mainRef = useRef<HTMLLIElement | null>(null);
+  const tabsRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const isModal = useSelector(getIsModal);
   const ingredients = useSelector(getAllIngredients);
-  const selectedIngredient = useSelector(getSelectedIngredient);
 
   useEffect(() => {
-    const simpleBarElement = simpleBarRef.current.getScrollElement();
+    const simpleBarElement = simpleBarRef.current?.getScrollElement();
     const handleScroll = () => {
-      const bunsRect = bunsRef.current.getBoundingClientRect();
-      const saucesRect = saucesRef.current.getBoundingClientRect();
-      const mainRect = mainRef.current.getBoundingClientRect();
-      const tabsRect = tabsRef.current.getBoundingClientRect();
-      setActiveTab(getClosestSection(tabsRect, bunsRect, saucesRect, mainRect));
+      const bunsRect = bunsRef.current?.getBoundingClientRect();
+      const saucesRect = saucesRef.current?.getBoundingClientRect();
+      const mainRect = mainRef.current?.getBoundingClientRect();
+      const tabsRect = tabsRef.current?.getBoundingClientRect();
+      setActiveTab(getClosestSection({ tabsRect, bunsRect, saucesRect, mainRect }));
     };
-    simpleBarElement.addEventListener("scroll", handleScroll);
+    simpleBarElement?.addEventListener("scroll", handleScroll);
     return () => {
-      simpleBarElement.removeEventListener("scroll", handleScroll);
+      simpleBarElement?.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const getClosestSection = (tabsRect, bunsRect, saucesRect, mainRect) => {
+  const getClosestSection = ({ tabsRect, bunsRect, saucesRect, mainRect }: TIngredientRects): string => {
+    if (!tabsRect || !bunsRect || !saucesRect || !mainRect) {
+      return "buns";
+    }
     const distances = {
       buns: Math.abs(bunsRect.top - tabsRect.bottom),
       sauces: Math.abs(saucesRect.top - tabsRect.bottom),
@@ -63,18 +67,18 @@ export default function BurgerIngredients() {
     <React.Fragment>
       <section className={burgerIngredientsStyles.container}>
         <h2 className="text text_type_main-large">Соберите бургер</h2>
-        <Tabs ref={tabsRef} activeTab={activeTab} setActiveTab={setActiveTab} />
+        <Tabs ref={tabsRef} activeTab={activeTab} />
         <SimpleBar style={{ maxHeight: 716 }} ref={simpleBarRef}>
           <ul>
-            <BurgerSection id="buns" ingredients={ingredients.filter((f) => f.type === "bun")} title="Булки" ref={bunsRef} />
-            <BurgerSection id="sauces" ingredients={ingredients.filter((f) => f.type === "sauce")} title="Соусы" ref={saucesRef} />
-            <BurgerSection id="main" ingredients={ingredients.filter((f) => f.type === "main")} title="Начинки" ref={mainRef} />
+            <BurgerSection ingredients={ingredients.filter((f: TIngredient) => f.type === "bun")} title="Булки" ref={bunsRef} />
+            <BurgerSection ingredients={ingredients.filter((f: TIngredient) => f.type === "sauce")} title="Соусы" ref={saucesRef} />
+            <BurgerSection ingredients={ingredients.filter((f: TIngredient) => f.type === "main")} title="Начинки" ref={mainRef} />
           </ul>
         </SimpleBar>
       </section>
       {isModal && (
-        <Modal onClose={closeModal} title="Детали ингредиента">
-          <IngredientDetails ingredient={selectedIngredient} />
+        <Modal onClose={closeModal}>
+          <IngredientDetails />
         </Modal>
       )}
     </React.Fragment>

@@ -14,11 +14,12 @@ import { ORDER_CLEAR, sendOrder } from "../../services/order/action";
 import { useDrop } from "react-dnd";
 import { getUser } from "../../services/user/selectors";
 import { useNavigate } from "react-router-dom";
+import { TIngredient } from "../../utils/types";
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [error,setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const { isModalOpen, openModal, closeModal } = useModal();
   const [price, setPrice] = useState(0);
   const ingredients = useSelector(getConstructorIngredients);
@@ -26,26 +27,27 @@ export default function BurgerConstructor() {
   const orderId = useSelector(getOrderId);
   const user = useSelector(getUser);
   const totalPrice = useMemo(() => {
-    return ingredients.reduce((total, ingredient) => total + ingredient.price, 0) + (bun ? bun.price * 2 : 0);
+    return ingredients.reduce((total: number, ingredient: TIngredient) => total + ingredient.price, 0) + (bun ? bun.price * 2 : 0);
   }, [ingredients, bun]);
   useEffect(() => {
     setPrice(totalPrice);
   }, [totalPrice]);
   const clickOrderButton = () => {
-      if (!user) {
-        navigate("/login");
-        return;
-      }
-      if (!ingredients || !bun) {
-        setError('Добавьте ингредиенты');
-        setTimeout(() => {
-          setError(null);
-        }, 3000);
-        return;
-      }
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    if (!ingredients || !bun) {
+      setError("Добавьте ингредиенты");
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+      return;
+    }
     const order = {
-      ingredients: [bun?._id, ...ingredients.map((ingredient) => ingredient._id), bun?._id],
+      ingredients: [bun?._id, ...ingredients.map((ingredient: TIngredient) => ingredient._id), bun?._id],
     };
+    //@ts-expect-error "redux"
     dispatch(sendOrder(order));
     openModal();
   };
@@ -60,13 +62,13 @@ export default function BurgerConstructor() {
   const onClickModal = () => {
     closeModal();
     dispatch({
-      type:ORDER_CLEAR,
-    })
-  }
+      type: ORDER_CLEAR,
+    });
+  };
   return (
     <React.Fragment>
       <section className={burgerConstructorStyles.container}>
-        <ul ref={drop}>
+        <ul ref={drop as unknown as React.RefObject<HTMLUListElement>}>
           {bun ? (
             <li>
               <ConstructorElement type="top" isLocked={true} price={bun.price} text={bun.name + "(верх)"} thumbnail={bun.image_mobile} />
@@ -82,7 +84,7 @@ export default function BurgerConstructor() {
           )}
           <SimpleBar style={{ maxHeight: 450, overflowX: "hidden" }}>
             {ingredients.length !== 0 ? (
-              ingredients.map((ingredient, index) => {
+              ingredients.map((ingredient: TIngredient, index: number) => {
                 return <BurgerConstructorElement ingredient={ingredient} key={ingredient.unique} index={index} />;
               })
             ) : (
@@ -109,7 +111,7 @@ export default function BurgerConstructor() {
             </li>
           )}
         </ul>
-        <span style={{color:'#FB76CF'}}>{error}</span>
+        <span style={{ color: "#FB76CF" }}>{error}</span>
         <div className={burgerConstructorStyles.total}>
           <span className="text text_type_digits-medium">
             {price}
