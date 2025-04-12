@@ -1,9 +1,14 @@
 import tabsStyles from "./tabs.module.css";
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import { TTubs } from "../../utils/types";
 
-export default function Tabs({ ref, activeTab, setActiveTab }) {
+type TTabsProps = {
+  ref?: React.Ref<HTMLDivElement>;
+  activeTab: TTubs | string;
+};
+
+export default function Tabs({ ref, activeTab }: TTabsProps) {
   // const clickTab = (evt) => {
   //   setActiveTab(evt);
   //   document.getElementById(evt).scrollIntoView();
@@ -11,22 +16,19 @@ export default function Tabs({ ref, activeTab, setActiveTab }) {
   return (
     <div className={tabsStyles.tabs} ref={ref}>
       <div>
+        {/* @ts-expect-error "yandex" */}
         <Tab value="buns" active={activeTab === "buns"}>
           Булки
         </Tab>
       </div>
-
+      {/* @ts-expect-error "yandex" */}
       <Tab value="sauces" active={activeTab === "sauces"}>
         Соусы
       </Tab>
+      {/* @ts-expect-error "yandex" */}
       <Tab value="main" active={activeTab === "main"}>
         Начинки
       </Tab>
     </div>
   );
 }
-Tabs.propTypes = {
-  ref: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.instanceOf(Element) })]),
-  activeTab: PropTypes.oneOf(["buns", "sauces", "main"]).isRequired,
-  setActiveTab: PropTypes.func,
-};

@@ -7,9 +7,10 @@ import { loadIngredients } from "../../services/ingredients/action";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-export default function Main() {
+export default function Main(): React.JSX.Element {
   const dispatch = useDispatch();
   useEffect(() => {
+    //@ts-expect-error "redux"
     dispatch(loadIngredients());
   }, [dispatch]);
   return (

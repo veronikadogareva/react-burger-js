@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getAllIngredients } from "../../services/ingredients/selectors";
 import { RingLoader } from "react-spinners";
+import { TIngredient } from "../../utils/types";
 
 export default function IngredientDetails() {
   let { id } = useParams();
   const ingredients = useSelector(getAllIngredients);
-  const ingredient = ingredients.filter((ingredient) => ingredient._id === id)[0];
+  const ingredient = ingredients.filter((ingredient: TIngredient) => ingredient._id === id)[0];
   if (!ingredient) {
-    return <RingLoader/>;
+    return <RingLoader />;
   }
   return (
     <div className={ingredientDetailsStyles.container}>
